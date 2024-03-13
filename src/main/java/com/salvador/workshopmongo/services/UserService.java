@@ -32,7 +32,7 @@ public class UserService {
 	
 	public User fromDTO(UserDTO objDto) {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
-	}
+	}	
 	
 	public void delete(String id) {
 		if (!repo.existsById(id)) {
@@ -41,5 +41,15 @@ public class UserService {
 		repo.deleteById(id);
 	}
 	
+	public User update(String id, User obj) {
+		User entity = findById(id);
+		updateData(entity, obj);
+		return repo.save(entity);
+	}
 	
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+	}
+
 }
